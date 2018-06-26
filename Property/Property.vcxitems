@@ -14,7 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)inckude\Property.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)inckude\PropertyHolder.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\property\Property.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\property\PropertyHolder.h" />
   </ItemGroup>
 </Project>

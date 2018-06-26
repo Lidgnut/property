@@ -2,8 +2,8 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "inckude/Property.h"
-#include "inckude/PropertyHolder.h"
+#include "include/property/Property.h"
+#include "include/property/PropertyHolder.h"
 
 namespace mwaack
 {
