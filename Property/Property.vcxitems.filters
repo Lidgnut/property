@@ -9,9 +9,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="d:\Benutzer\Marco\Source\Repos\Property\Property\inckude\Property.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)inckude\PropertyHolder.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)inckude\Property.h" />
   </ItemGroup>
 </Project>
