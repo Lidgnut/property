@@ -9,9 +9,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="d:\Benutzer\Marco\Source\Repos\Property\Property\include\property\Property.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)include\property\PropertyHolder.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\property\Property.h" />
   </ItemGroup>
 </Project>
