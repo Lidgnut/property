@@ -5,11 +5,12 @@
 
 namespace mwaack
 {
-	struct I_Property
+	struct __declspec(dllexport) I_Property
 	{
 		virtual ~I_Property() = default;
-		//virtual std::unique_ptr<I_Property> clone() const = 0;
 		
+		virtual I_Property* clone() const = 0;
+
 		// Casts <this> to T and applies the newProp via it's assignmend operators
 		template<typename T>
 		I_Property& copyFrom(const T& newProp)

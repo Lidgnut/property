@@ -6,8 +6,21 @@
 
 namespace mwaack
 {
+	class I_PropertyHolder
+	{
+	public:
+		virtual I_Property& fastProp() = 0;
+		virtual I_Property& slowProp() = 0;
+		virtual const I_Property& fastProp() const = 0;
+		virtual const I_Property& slowProp() const = 0;
+		virtual const I_Property& cfastProp() const = 0;
+		virtual const I_Property& cslowProp() const = 0;
+
+		virtual ~I_PropertyHolder() = default;
+	};
+
 	template <size_t Buffer>
-	class PropertyHolder
+	class PropertyHolder : public I_PropertyHolder
 	{
 		std::array<unsigned char, Buffer> m_buffer;
 		I_Property* m_fastProperty;
@@ -15,7 +28,7 @@ namespace mwaack
 
 	public:
 		template<typename T, typename U,
-			typename = std::enable_if_t<(sizeof(T) - sizeof(void*) <= Buffer - sizeof(unsigned long long))>,
+			typename = std::enable_if_t<(sizeof(T) <= Buffer)>,
 			typename = std::enable_if_t<std::is_base_of_v<I_Property, T>>,
 			typename = std::enable_if_t<std::is_base_of_v<I_Property, U>>
 		>
@@ -27,7 +40,7 @@ namespace mwaack
 		}
 
 		template<typename T, typename U,
-			typename = std::enable_if_t<(sizeof(T) - sizeof(void*) <= Buffer - sizeof(unsigned long long))>,
+			typename = std::enable_if_t<(sizeof(T) <= Buffer)>,
 			typename = std::enable_if_t<std::is_base_of_v<I_Property, T>>,
 			typename = std::enable_if_t<std::is_base_of_v<I_Property, U>>
 		>
@@ -38,8 +51,18 @@ namespace mwaack
 		{
 		}
 		
-		PropertyHolder& operator=(const PropertyHolder&) = delete;
-		PropertyHolder(const PropertyHolder&) = delete;
+		PropertyHolder& operator=(const PropertyHolder& other)
+		{
+			m_buffer = other.m_buffer;
+			m_fastProperty = &m_buffer;
+			m_slowProperty = m_slowProperty.clone();
+		}
+		PropertyHolder(const PropertyHolder& other)
+			: m_buffer(other.m_buffer)
+			, m_fastPropery(&m_buffer)
+			, m_slowProperty(other.m_slowProperty.clone())
+		{
+		}
 
 		PropertyHolder(PropertyHolder&& other)
 			: m_buffer(other.m_buffer)
@@ -60,7 +83,7 @@ namespace mwaack
 			return *this;
 		}
 
-		~PropertyHolder()
+		virtual ~PropertyHolder() override
 		{
 			if (m_slowProperty != nullptr)
 			{
