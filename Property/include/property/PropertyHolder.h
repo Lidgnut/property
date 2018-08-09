@@ -9,7 +9,8 @@ namespace mwaack
 
 	class I_PropertyHolder
 	{
-		virtual ~I_PropertyHolder() = default;;
+	public:
+		virtual ~I_PropertyHolder() = default;
 
 
 		virtual I_Property& fastProp() = 0;
