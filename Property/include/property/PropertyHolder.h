@@ -35,7 +35,7 @@ namespace mwaack
 
 	public:
 		template<typename T, typename U,
-			typename = std::enable_if_t<(sizeof(T) - sizeof(void*) <= Buffer - sizeof(unsigned long long))>,
+			typename = std::enable_if_t<(sizeof(T) <= Buffer)>,
 			typename = std::enable_if_t<std::is_base_of_v<I_Property, T>>,
 			typename = std::enable_if_t<std::is_base_of_v<I_Property, U>>
 		>
@@ -47,7 +47,7 @@ namespace mwaack
 		}
 
 		template<typename T, typename U,
-			typename = std::enable_if_t<(sizeof(T) - sizeof(void*) <= Buffer - sizeof(unsigned long long))>,
+			typename = std::enable_if_t<(sizeof(T) <= Buffer)>,
 			typename = std::enable_if_t<std::is_base_of_v<I_Property, T>>,
 			typename = std::enable_if_t<std::is_base_of_v<I_Property, U>>
 		>
@@ -80,7 +80,7 @@ namespace mwaack
 			return *this;
 		}
 
-		~PropertyHolder()
+		virtual ~PropertyHolder()
 		{
 			if (m_slowProperty != nullptr)
 			{
